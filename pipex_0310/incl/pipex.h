@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 23:22:29 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/07/22 12:18:17 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/06 15:59:32 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,28 @@
 # include <sys/wait.h> // waitpid, pid_t, WIFEXITED(status)
 # include <unistd.h>   // write, read (neeeded?), pipe, fork, unlink
 
+/**
+ * This structure is part of the 'child_return' structure, which manages 
+ * a collection of child process IDs.
+ * 
+ * This structure represents a node in a linked list, where each node stores
+ * a process ID (pid) and a pointer to the next node.
+ * @param id: The process ID of a child process.
+ * @param next: A pointer to the next node in the list.
+*/
 typedef struct id_list
 {
 	pid_t			id;
 	struct id_list	*next;
 }					t_id_list;
 
+/**
+ * This structure is used to manage child processes by storing a linked list
+ * of process IDs and a file descriptor. 
+ * 
+ * @param fd_to_read represents a file descriptor used for reading data
+ * from the child processes.
+*/
 typedef struct child_return
 {
 	t_id_list			*list;

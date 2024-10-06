@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:30:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/06 15:50:02 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/06 15:55:22 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,32 @@ void	w_errpipe_close(int open_fd)
 {
 	close(open_fd);
 	perror_and_exit("pipe", NULL);
+}
+
+/**
+ * This function is a wrapper for the waitpid system call, designed to wait
+ * for the termination of multiple child processes stored in a linked list.
+ * It ensures that each child process in the 'child_return' structure is
+ * waited on, handling process management efficiently.
+ * 
+ * This function iterates through a linked list of process IDs (pids)
+ * stored in the child_return structure and calls waitpid on each one
+ * to wait for their termination.
+ * 
+ * @param ch: A double pointer to a child_return structure containing
+ * the list of process IDs to wait for.
+*/
+int	w_waitpid(child_return **ch)
+{
+	t_id_list *tmp;
+
+	if (!*ch)
+		return (-3);
+	tmp = (*ch)->list;
+	while (tmp)
+	{
+		waitpid(tmp->id, NULL, 0);
+		tmp = tmp->next;
+	}
+	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:12:49 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/07/22 12:18:05 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/06 15:52:26 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,4 @@ void	check_args_multi(int argc, char **argv, char *env[])
 			check_cmd(argv[i], env);
 		i++;
 	}
-}
-
-int	w_waitpid(child_return **ch)
-{
-	t_id_list *tmp;
-
-	if (!*ch)
-		return (-3);
-	tmp = (*ch)->list;
-	while (tmp)
-	{
-		waitpid(tmp->id, NULL, 0);
-		tmp = tmp->next;
-	}
-	return(0);
 }
