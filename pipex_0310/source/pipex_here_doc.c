@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/07/30 19:43:49 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/06 12:45:34 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	here_read(char *lim)
 	int		fd[2];
 
 	pip = pipe(fd);
+	pip++;
 	id = fork();
 	if (id == 0)
 	{
