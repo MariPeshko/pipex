@@ -6,13 +6,22 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:23:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 15:24:13 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:29:15 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 #include "libft/libft.h"
 
+/**
+ * @brief This function frees the memory allocated for both the command 
+ * and its path. Helps to clean up dynamically allocated memory after using 
+ * commands and paths to prevent memory leaks.
+ * 
+ * @param cmd_plus_args: An array of strings that holds the command 
+ * and its arguments.
+ * @param cmd_path: A string that stores the full path of the command.
+ */
 void	free_cmd_and_path(char **cmd_plus_args, char *cmd_path)
 {
 	ft_freestr(cmd_plus_args);
