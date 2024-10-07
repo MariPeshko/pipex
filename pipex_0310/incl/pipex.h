@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 23:22:29 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/06 15:59:32 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 16:17:35 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void				here_doc(int argc, char **argv, char **env);
 void				multi_pipe(int argc, char **argv, char **env);
 void				child_process(char *argv, char **env, child_return **ch);
 void				last_child(char *argv, char **env, child_return **ch, int write_to);
-int	w_waitpid(child_return **ch);
+int					w_waitpid(child_return **ch);
 
 // checker
 int					check_cmd(char *cmd, char *env[]);
@@ -72,6 +72,7 @@ int					open_outfile(char *name_file, char mode);
 int					dev_null(int read_from);
 
 // function for struct
+child_return		*create_child_return(int read_from);
 t_id_list				*node_birth(pid_t pid);
 void				list_birth(t_id_list **lst, t_id_list *node);
 void				error_mall_exit(int err_number);

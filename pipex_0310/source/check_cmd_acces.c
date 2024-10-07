@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:23:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 15:29:15 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 16:18:22 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	free_cmd_and_path(char **cmd_plus_args, char *cmd_path)
 /**
  * @brief This function checks if a given command can be accessed and 
  * executed by the system.
+ * 
+ * Called in functions "multi_pipe" and "here_doc".
  * 
  * The function returns -6 when either:
  * - The argument (command) is empty or NULL.
@@ -65,11 +67,11 @@ int	acces_cmd(char *argument, char *env[])
 	}
 }
 
-// The function checks if the argument is valid. In case it is valid,
-// it returns 5. If not it calls the function 'no_cmd_path' and
-// 'no_cmd_path' displays the info about invald argument on stderr.
-// If a command can be accessed by passing an argument to the access
-// function call, then the argument is the path to the command.
+/**
+ * Used at the early stage of program in functions - "check_args_hdoc" 
+ * and "check_args_multi". It explicitly prints an error message 
+ * (via "no_cmd_path") if the command cannot be found.
+ */
 int	check_cmd(char *argument, char *env[])
 {
 	char	**cmd_plus_args;

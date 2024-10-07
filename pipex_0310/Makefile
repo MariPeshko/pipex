@@ -6,13 +6,14 @@
 #    By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 13:18:17 by mpeshko           #+#    #+#              #
-#    Updated: 2024/07/21 15:35:45 by mpeshko          ###   ########.fr        #
+#    Updated: 2024/10/07 16:20:51 by mpeshko          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
 
 SRCS		=	source/pipex.c \
+				source/main.c \
 				source/pipex_here_doc.c \
 				source/call_cmd.c \
 				source/errors.c \
