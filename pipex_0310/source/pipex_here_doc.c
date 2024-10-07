@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 16:37:11 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 16:54:38 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static int	here_read(char *lim)
 // cmd is '3' because in input the forth argument is a first command
 void	here_doc(int argc, char **argv, char **env)
 {
-	int		cmd;
-	char	mode;
-	int		write_to;
-	int		read_from;
+	int					cmd;
+	char				mode;
+	int					write_to;
+	int					read_from;
 	struct child_return	*ch;
 
-    check_args_hdoc(argc, argv, env);
+	check_args_hdoc(argc, argv, env);
 	read_from = here_read(argv[2]);
 	w_dup2(read_from, STDIN_FILENO, -2);
 	ch = create_child_return(read_from);
@@ -78,8 +78,8 @@ void	here_doc(int argc, char **argv, char **env)
 		cmd++;
 	}
 	write_to = open_outfile(argv[argc - 1], mode);
-    last_child(argv[cmd], env, &ch, write_to);
-    if(ch->list != NULL)
+	last_child(argv[cmd], env, &ch, write_to);
+	if (ch->list != NULL)
 		w_waitpid(&ch);
 	free_struct(&ch);
 }

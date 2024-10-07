@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 16:36:07 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 16:55:00 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ child_return	*create_child_return(int read_from)
  */
 void	multi_pipe(int argc, char **argv, char **env)
 {
-	int	cmd;
-	int	read_from;
-	int	write_to;
+	int					cmd;
+	int					read_from;
+	int					write_to;
 	struct child_return	*ch;
 
 	check_args_multi(argc, argv, env);
