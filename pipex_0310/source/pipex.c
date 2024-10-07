@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 16:19:51 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 16:36:07 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,16 @@ static int	cmd_to_start(char *name_file)
 
 // Function to create and initialize a child_return structure.
 // Returns the pointer to the newly created structure.
-child_return *create_child_return(int read_from)
+child_return	*create_child_return(int read_from)
 {
-    child_return *ch;
-	
+	child_return	*ch;
+
 	ch = ft_calloc(1, sizeof(child_return));
-    if (ch == NULL)
-        error_mall_exit(5);
-    ch->fd_to_read = read_from;
-    ch->list = NULL;
-    return (ch);
+	if (ch == NULL)
+		error_mall_exit(5);
+	ch->fd_to_read = read_from;
+	ch->list = NULL;
+	return (ch);
 }
 
 /**
@@ -117,8 +117,8 @@ void	multi_pipe(int argc, char **argv, char **env)
 	int	cmd;
 	int	read_from;
 	int	write_to;
-	child_return	(*ch);
-	
+	struct child_return	*ch;
+
 	check_args_multi(argc, argv, env);
 	read_from = open_infile(argv[1]);
 	w_dup2(read_from, STDIN_FILENO, -2);

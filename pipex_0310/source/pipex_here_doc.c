@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/06 12:45:34 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 16:37:11 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,12 @@ void	here_doc(int argc, char **argv, char **env)
 	char	mode;
 	int		write_to;
 	int		read_from;
-    struct child_return *ch;
+	struct child_return	*ch;
 
     check_args_hdoc(argc, argv, env);
 	read_from = here_read(argv[2]);
 	w_dup2(read_from, STDIN_FILENO, -2);
-	ch = ft_calloc(1, sizeof(child_return));
-	if (ch == NULL)
-		error_mall_exit(5);
-    ch->fd_to_read = read_from;
+	ch = create_child_return(read_from);
 	mode = 'h';
 	cmd = 3;
 	while (cmd < argc - 2)
