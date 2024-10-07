@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:23:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/07/16 12:32:22 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:24:13 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ void	free_cmd_and_path(char **cmd_plus_args, char *cmd_path)
 	free(cmd_path);
 }
 
+/**
+ * @brief This function checks if a given command can be accessed and 
+ * executed by the system.
+ * 
+ * The function returns -6 when either:
+ * - The argument (command) is empty or NULL.
+ * - The command is not found in the system’s path (i.e., get_path
+ * cannot locate it).
+ */
 int	acces_cmd(char *argument, char *env[])
 {
 	char	**cmd_plus_args;

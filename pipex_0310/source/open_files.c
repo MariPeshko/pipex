@@ -6,20 +6,32 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:23:25 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/05 13:18:02 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:23:31 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 #include "libft/libft.h"
 
+/**
+ * @brief Used to discard input when no valid command is provided, 
+ * preventing unnecessary input processing from the original file descriptor.
+ * 
+ * The "dev_null" function is used when the command in "acces_cmd" function
+ * is invalid.
+ * 
+ * In case of an issue with the command, the program redirects the 
+ * input source (fd_to_read) to /dev/null. So there's no input to process, 
+ * and it discards anything that might have been read from the original 
+ * file descriptor.
+ */
 int	dev_null(int read_from)
 {
 	int	new_read_from;
 
 	close(read_from);
 	new_read_from = open("/dev/null", O_RDONLY);
-	w_dup2(read_from, STDIN_FILENO, -2);
+	//w_dup2(read_from, STDIN_FILENO, -2);
 	return (new_read_from);
 }
 
@@ -38,6 +50,11 @@ static void	error_permission(char *name_file)
 	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
+/**
+ * @brief Opens a file for reading. If the file does not exist or cannot 
+ * be accessed, it handles the errors accordingly. If the file cannot 
+ * be opened, it defaults to opening /dev/null.
+ */
 int	open_infile(char *name_file)
 {
 	int	file_in;
@@ -52,6 +69,20 @@ int	open_infile(char *name_file)
 	return (file_in);
 }
 
+/**
+ * Opens or creates a file for writing. It handles two modes: 'p' for 
+ * truncating the file (overwrite mode) and 'h' for appending to the file. 
+ * If there are permission issues or file errors, the function manages 
+ * those with appropriate error handlers.
+ * 
+ * The 0644 in the call to open represents the file permissions.
+ * 0: This leading 0 indicates that the number is in octal (base 8).
+ * 6 in octal is equivalent to 4 (read) + 2 (write), meaning the owner 
+ * has read and write permissions.
+ * 4 in octal corresponds to read permission. So the group can only 
+ * read the file.
+ * 4 (others): This is the permission for others. Others can only read.
+ */
 int	open_outfile(char *name_file, char mode)
 {
 	int	file_out;

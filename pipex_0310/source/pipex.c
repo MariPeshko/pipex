@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/07/30 20:00:11 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 14:01:27 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ static int	cmd_to_start(char *name_file)
 	}
 }
 
+/**
+ * 
+ * In case of an issue with the command, "acces_cmd" function returns -6,
+ * the program redirects the input source (fd_to_read) to /dev/null.
+ * So there's no input to process, and it discards anything that might
+ * have been read from the original file descriptor.
+ */
 void	multi_pipe(int argc, char **argv, char **env)
 {
 	int	cmd;
