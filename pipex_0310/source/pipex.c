@@ -6,12 +6,22 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 16:55:00 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 20:06:25 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 #include "libft/libft.h"
+
+// Function to handle child processes
+static void	process_command(int cmd, char **argv, char **env, 
+	struct child_return **ch)
+{
+	if (acces_cmd(argv[cmd], env) == -6)
+		(*ch)->fd_to_read = dev_null((*ch)->fd_to_read);
+	else
+		child_process(argv[cmd], env, ch);
+}
 
 void	last_child(char *argv, char **env, child_return **ch, int write_to)
 {
@@ -73,8 +83,16 @@ void	child_process(char *argv, char **env, child_return **ch)
 	}
 }
 
-// If no access to infile, then we start execution not from the 1st
-// command, but from the 2nd command. This is a behaviour of bash.
+/**
+ * Determines the starting command based on the accessibility 
+ * of the input file.
+ * 
+ * If there is no read access to the infile, the function returns 3, 
+ * indicating that execution should start from the 2nd command (argv[3])
+ * as per bash behavior. If read access to the infile is available, 
+ * it returns 2, indicating that execution should start from 
+ * the 1st command (argv[2]).
+ */
 static int	cmd_to_start(char *name_file)
 {
 	int	file_in;
@@ -104,13 +122,28 @@ child_return	*create_child_return(int read_from)
 }
 
 /**
+ * @brief Executes a sequence of commands connected by pipes, replicating 
+ * bash-like pipeline behavior for multi-command processing.
  * 
+ * The function handles the input and output redirection from files, sets 
+ * up pipes between commands, and executes each command sequentially. It 
+ * takes in the format: "./pipex infile cmd1 cmd2 ... cmdn outfile".
  * 
+ * 1. Opens the input file (infile) and redirects its content to STDIN.
+ * 2. Starts executing commands in a pipeline, creating child processes 
+ * for each.
+ * 3. For each command, it sets up pipes, ensuring that the output of 
+ * one command is passed as input to the next.
+ * 4. Opens the output file (outfile) for the last command in the pipeline, 
+ * redirecting the final output to it. If the open_outfile function 
+ * fails (write_to == -1), then the last_child function will not be executed. 
+ * 5. Waits for all child processes to finish and frees allocated memory.
  * 
- * In case of an issue with the command, "acces_cmd" function returns -6,
- * the program redirects the input source (fd_to_read) to /dev/null.
- * So there's no input to process, and it discards anything that might
- * have been read from the original file descriptor.
+ * @param argc Number of arguments, representing commands and input/output 
+ * files.
+ * @param argv Array of command arguments in the format: 
+ * infile cmd1 cmd2 ... cmdn outfile.
+ * @param env  Environment variables for command execution.
  */
 void	multi_pipe(int argc, char **argv, char **env)
 {
@@ -125,13 +158,7 @@ void	multi_pipe(int argc, char **argv, char **env)
 	ch = create_child_return(read_from);
 	cmd = cmd_to_start(argv[1]);
 	while (cmd < argc - 2)
-	{
-		if (acces_cmd(argv[cmd], env) == -6)
-			ch->fd_to_read = dev_null(ch->fd_to_read);
-		else
-			child_process(argv[cmd], env, &ch);
-		cmd++;
-	}
+		process_command(cmd++, argv, env, &ch);
 	write_to = open_outfile(argv[argc - 1], 'p');
 	if (write_to != -1)
 	{
