@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:23:25 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 15:23:31 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:26:16 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	dev_null(int read_from)
 
 	close(read_from);
 	new_read_from = open("/dev/null", O_RDONLY);
-	//w_dup2(read_from, STDIN_FILENO, -2);
 	return (new_read_from);
 }
 
@@ -95,12 +94,12 @@ int	open_outfile(char *name_file, char mode)
 	if (access(name_file, W_OK) != 0)
 	{
 		error_permission(name_file);
-		return(-1);
+		return (-1);
 	}
 	if (file_out == -1)
 	{
 		error_file(name_file);
-		return(-1);
+		return (-1);
 	}
 	return (file_out);
 }
