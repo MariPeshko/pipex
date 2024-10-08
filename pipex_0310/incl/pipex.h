@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 23:22:29 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 18:18:31 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:41:25 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct child_return
 // bonus main functions
 void				here_doc(int argc, char **argv, char **env);
 void				multi_pipe(int argc, char **argv, char **env);
+void				process_command(int cmd, char **argv, char **env, 
+	struct child_return **ch);
 void				child_process(char *argv, char **env, child_return **ch);
 void				last_child(char *argv, char **env, child_return **ch, int write_to);
 int					w_waitpid(child_return **ch);

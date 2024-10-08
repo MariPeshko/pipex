@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 18:23:37 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:41:03 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft/libft.h"
 
 // Function to handle child processes
-static void	process_command(int cmd, char **argv, char **env, 
+void	process_command(int cmd, char **argv, char **env, 
 	struct child_return **ch)
 {
 	if (acces_cmd(argv[cmd], env) == -6)

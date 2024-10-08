@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:03 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 16:54:38 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:48:07 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,21 @@ static int	here_read(char *lim)
 	return (fd[0]);
 }
 
-// mode 'h' is a APPEND mode for outfile
-// cmd is '3' because in input the forth argument is a first command
+/**
+ * @brief reads from the heredoc input and executing the commands 
+ * sequentially, redirecting output to the outfile in 
+ * appending mode.
+ * 
+ * It simulates the input of bash
+ * cmd1 << LIMITER | cmd2 >> file
+ * 
+ * Example of input
+ * ./pipex here_doc LIMITER cmd1 cmd2 file
+ * 
+ * @param mode 'h' is a APPEND mode for outfile
+ * @param cmd The first command (cmd1) in heredoc mode starts 
+ * at the fourth argument, hence cmd is initialized to 3.
+ */
 void	here_doc(int argc, char **argv, char **env)
 {
 	int					cmd;
@@ -70,15 +83,10 @@ void	here_doc(int argc, char **argv, char **env)
 	mode = 'h';
 	cmd = 3;
 	while (cmd < argc - 2)
-	{
-		if (acces_cmd(argv[cmd], env) == -6)
-			ch->fd_to_read = dev_null(ch->fd_to_read);
-		else
-			child_process(argv[cmd], env, &ch);
-		cmd++;
-	}
+		process_command(cmd++, argv, env, &ch);
 	write_to = open_outfile(argv[argc - 1], mode);
-	last_child(argv[cmd], env, &ch, write_to);
+	if (write_to != -1)
+		last_child(argv[cmd], env, &ch, write_to);
 	if (ch->list != NULL)
 		w_waitpid(&ch);
 	free_struct(&ch);
