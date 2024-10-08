@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:12:49 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/06 15:52:26 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:55:15 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ void	how_execute_pipex(void)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * @brief Validates the arguments for the heredoc input mode.
+ * 
+ * This function checks if the correct number of arguments (6) is provided 
+ * and ensures that each command is valid and non-empty.
+ * If the arguments are invalid or any command 
+ * is empty, an error is printed, and the program exits.
+ * 
+ * Example of valid input:
+ * ./pipex_bonus here_doc LIMITER cmd cmd1 file
+ * 
+ * @param argc Number of arguments passed.
+ * @param argv Array of argument strings.
+ * @param env Environment variables.
+ */
 void	check_args_hdoc(int argc, char **argv, char *env[])
 {
 	int	i;
@@ -49,6 +64,23 @@ void	check_args_hdoc(int argc, char **argv, char *env[])
 		i++;
 	}
 }
+
+/**
+ * @brief Validates the arguments for multiple command execution.
+ * 
+ * This function checks if the correct number of arguments (at least 5) 
+ * is provided for the multi-command execution. It ensures that each command 
+ * (cmd1, cmd2, ..., cmdn) is valid and non-empty. If the arguments are 
+ * insufficient or any command is empty, an error is printed, and the 
+ * program exits.
+ * 
+ * Example of valid input:
+ * ./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2
+ * 
+ * @param argc Number of arguments passed.
+ * @param argv Array of argument strings.
+ * @param env Environment variables.
+ */
 
 void	check_args_multi(int argc, char **argv, char *env[])
 {
