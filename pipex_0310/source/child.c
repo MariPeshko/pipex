@@ -6,13 +6,19 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:11:23 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 19:10:13 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:31:36 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 #include "libft/libft.h"
 
+/**
+ * It is mstly tha same function as "child_process", but for the last
+ * command.
+ * 
+ * @param write_to is a FD for the output of the whole program.
+ */
 void	last_child(char *argv, char **env, child_return **ch, int write_to)
 {
 	pid_t		pid;
@@ -40,6 +46,30 @@ void	last_child(char *argv, char **env, child_return **ch, int write_to)
 	close((*ch)->fd_to_read);
 }
 
+/**
+ * @brief Handles the creation and execution of a child process.
+ * 
+ * This function creates a pipe and forks a new child process.
+ * The child process redirects its standard output (STDOUT) to 
+ * the write end of the pipe, and if the command is valid, it executes it.
+ * The parent process updates the read end of the pipe, stores 
+ * the child process information in a list for later use in `w_waitpid`
+ * function, and redirects the input to the previous process’s output.
+ * 
+ * If any error occurs during pipe or fork creation, it handles 
+ * the error and closes relevant file descriptors.
+ * 
+ * @param argv Command to be executed in the child process.
+ * @param env Array of environment variables.
+ * @param ch Pointer to a child_return structure storing process details.
+ * @param fd_to_read  Each command reads input from `(*ch)->fd_to_read`, 
+ * which can be:
+ * - A file or heredoc file or /dev/null if input redirection 
+ * is being used;
+ * - The read end of the pipe from the previous command in a pipeline.
+ * The parent process updates `(*ch)->fd_to_read = fd[0]` to ensure 
+ * the next command in the pipeline reads from the appropriate input.
+ */
 void	child_process(char *argv, char **env, child_return **ch)
 {
 	pid_t		pid;
