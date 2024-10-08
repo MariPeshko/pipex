@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:21:30 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/06 12:42:23 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:14:44 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,6 @@ t_id_list	*ft_lstlast(t_id_list *lst)
 }
 
 /**
- * Prints an error message ("Error\n") to the standard error output
- * and exits the program with the given error code. This function is
- * used to handle memory allocation errors.
-*/
-void	error_mall_exit(int err_number)
-{
-	write(2, "Error\n", 6);
-	exit(err_number);
-}
-
-/**
  * Adds a new node to the end of a linked list.
  * If the list is empty, the new node becomes the head;
  * otherwise, it appends the node to the last element
@@ -88,18 +77,16 @@ void	list_birth(t_id_list **lst, t_id_list *node)
 /**
  * Allocates memory for a new node of type t_id_list, initializes
  * it with the given process ID (pid), and sets its next pointer to NULL.
- * If memory allocation fails, the function calls error_mall_exit()
- * to handle the error.
  * 
  * @param pid: The process ID to be assigned to the new node.
 */
 t_id_list	*node_birth(pid_t pid)
 {
-	t_id_list *node;
+	t_id_list	*node;
 
 	node = ft_calloc(1, sizeof(t_id_list));
 	if (!node)
-		error_mall_exit(5);
+		perror_and_exit("malloc", NULL);
 	node->id = pid;
 	node->next = NULL;
 	return (node);

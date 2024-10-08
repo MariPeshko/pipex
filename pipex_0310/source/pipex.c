@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 18:41:03 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:14:37 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	cmd_to_start(char *name_file)
 	}
 }
 
-// Function to create and initialize a child_return structure.
+// Function to create and initialize a "child_return" structure.
 // Returns the pointer to the newly created structure.
 child_return	*create_child_return(int read_from)
 {
@@ -68,7 +68,10 @@ child_return	*create_child_return(int read_from)
 
 	ch = ft_calloc(1, sizeof(child_return));
 	if (ch == NULL)
-		error_mall_exit(5);
+	{
+		close(read_from);
+		perror_and_exit("malloc", NULL);
+	}
 	ch->fd_to_read = read_from;
 	ch->list = NULL;
 	return (ch);

@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:11:23 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 20:13:30 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:10:13 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@ void	last_child(char *argv, char **env, child_return **ch, int write_to)
 			exit(EXIT_FAILURE);
 		call_cmd(argv, env);
 	}
-	else
-	{
-		node = node_birth(pid);
-		list_birth(&(*ch)->list, node);
-		close(fd[1]);
-		dup2((*ch)->fd_to_read, STDIN_FILENO);
-		close((*ch)->fd_to_read);
-	}
+	node = node_birth(pid);
+	list_birth(&(*ch)->list, node);
+	close(fd[1]);
+	dup2((*ch)->fd_to_read, STDIN_FILENO);
+	close((*ch)->fd_to_read);
 }
 
 void	child_process(char *argv, char **env, child_return **ch)
@@ -62,13 +59,10 @@ void	child_process(char *argv, char **env, child_return **ch)
 			exit(EXIT_FAILURE);
 		call_cmd(argv, env);
 	}
-	else
-	{
-		node = node_birth(pid);
-		list_birth(&(*ch)->list, node);
-		close(fd[1]);
-		dup2((*ch)->fd_to_read, STDIN_FILENO);
-		close((*ch)->fd_to_read);
-		(*ch)->fd_to_read = fd[0];
-	}
+	node = node_birth(pid);
+	list_birth(&(*ch)->list, node);
+	close(fd[1]);
+	dup2((*ch)->fd_to_read, STDIN_FILENO);
+	close((*ch)->fd_to_read);
+	(*ch)->fd_to_read = fd[0];
 }

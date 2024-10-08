@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:30:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 20:02:20 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:10:50 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	w_errpipe_close(int open_fd)
 */
 int	w_waitpid(child_return **ch)
 {
-	t_id_list *tmp;
+	t_id_list	*tmp;
 
 	if (!*ch)
 		return (-3);
@@ -94,5 +94,5 @@ int	w_waitpid(child_return **ch)
 		waitpid(tmp->id, NULL, 0);
 		tmp = tmp->next;
 	}
-	return(0);
+	return (0);
 }

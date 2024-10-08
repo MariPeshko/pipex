@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 23:22:29 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 18:41:25 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:13:37 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int					dev_null(int read_from);
 child_return		*create_child_return(int read_from);
 t_id_list				*node_birth(pid_t pid);
 void				list_birth(t_id_list **lst, t_id_list *node);
-void				error_mall_exit(int err_number);
 t_id_list				*ft_lstlast(t_id_list *lst);
 void				free_struct(child_return **ch);
 
