@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 20:11:48 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:23:37 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ static void	process_command(int cmd, char **argv, char **env,
 		(*ch)->fd_to_read = dev_null((*ch)->fd_to_read);
 	else
 		child_process(argv[cmd], env, ch);
+}
+
+// Function to handle the last child processes
+static void	process_last_command(int cmd, char **argv, char **env, 
+	struct child_return **ch)
+{
+	int	write_to;
+
+	write_to = (*ch)->fd_to_write;
+	if (acces_cmd(argv[cmd], env) == -6)
+		(*ch)->fd_to_read = dev_null((*ch)->fd_to_read);
+	else
+		last_child(argv[cmd], env, ch, write_to);
 }
 
 /**
@@ -102,10 +115,8 @@ void	multi_pipe(int argc, char **argv, char **env)
 	write_to = open_outfile(argv[argc - 1], 'p');
 	if (write_to != -1)
 	{
-		if (acces_cmd(argv[cmd], env) == -6)
-			ch->fd_to_read = dev_null(ch->fd_to_read);
-		else
-			last_child(argv[cmd], env, &ch, write_to);
+		ch->fd_to_write = write_to;
+		process_last_command(cmd, argv, env, &ch);
 	}
 	if (ch->list != NULL)
 		w_waitpid(&ch);

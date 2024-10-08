@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 23:22:29 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/07 16:17:35 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:18:31 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ typedef struct id_list
  * 
  * @param fd_to_read represents a file descriptor used for reading data
  * from the child processes.
+ * @param fd_to_write a FD for the final output of the pipex
 */
 typedef struct child_return
 {
 	t_id_list			*list;
 	int				fd_to_read;
+	int				fd_to_write;
 } child_return ;
 
 // bonus main functions
