@@ -6,13 +6,21 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:55:30 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/07/16 13:36:31 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:35:44 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/pipex.h"
 #include "libft/libft.h"
 
+/**
+ * @brief Constructs the full path to a command by joining a folder and 
+ * command name.
+ * 
+ * @param folder The directory containing the command.
+ * @param cmd_name The name of the command.
+ * @return The full command path or NULL on failure.
+ */
 char	*build_cmd_path(const char *folder, const char *cmd_name)
 {
 	char	*temp;
@@ -31,9 +39,14 @@ char	*build_cmd_path(const char *folder, const char *cmd_name)
 	return (cmd_path);
 }
 
-// Additional function for getting a path to executable.
-// If there is no acces to this command_name in any folder
-// it frees folders and returns NULL.
+/**
+ * @brief Checks if a command exists in the provided folders and 
+ * returns its path.
+ * 
+ * @param folders An array of folder paths.
+ * @param cmd_name The name of the command to check.
+ * @return The path to the executable if found, or NULL if not.
+ */
 char	*exe_exists(char **folders, char *cmd_name)
 {
 	char	*path;
@@ -51,9 +64,13 @@ char	*exe_exists(char **folders, char *cmd_name)
 	return (NULL);
 }
 
-// Searching the environmental variable 'PATH' and returning a
-// pointer to the forst character after '='. It is a pointer to the
-// first folder (directory) in a list of many folders.
+/**
+ * @brief Retrieves the folders from the 'PATH' environment variable.
+ * 
+ * @param env_var_path The name of the environment variable (e.g., "PATH").
+ * @param env The environment variables array.
+ * @return A pointer to the first folder in the PATH or NULL if not found.
+ */
 char	*get_all_folders(const char *env_var_path, char **env)
 {
 	size_t	i;
@@ -80,8 +97,14 @@ char	*get_all_folders(const char *env_var_path, char **env)
 	return (NULL);
 }
 
-// It gets the path to the command executable ("cmd name").
-// The search takes place in the "PATH" environment variable (found in "env").
+/**
+ * @brief Obtains the path of a command by searching the 'PATH' 
+ * environment variable.
+ * 
+ * @param cmd_name The name of the command to locate.
+ * @param env The environment variables array.
+ * @return The command path if found, or NULL if not.
+ */
 char	*get_path(char *cmd_name, char **env)
 {
 	char	**folders;
@@ -108,6 +131,13 @@ char	*get_path(char *cmd_name, char **env)
 	}
 }
 
+/**
+ * @brief Executes a command with its arguments, searching for 
+ * the executable path.
+ * 
+ * @param argument The command and its arguments as a string.
+ * @param env The environment variables array.
+ */
 void	call_cmd(char *argument, char *env[])
 {
 	char	**cmd_plus_args;

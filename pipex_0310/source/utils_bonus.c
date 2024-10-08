@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:12:49 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 18:55:15 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:39:44 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	check_args_hdoc(int argc, char **argv, char *env[])
  * @param argv Array of argument strings.
  * @param env Environment variables.
  */
-
 void	check_args_multi(int argc, char **argv, char *env[])
 {
 	int	i;

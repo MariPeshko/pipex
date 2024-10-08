@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:11:17 by mpeshko           #+#    #+#             */
-/*   Updated: 2024/10/08 19:14:37 by mpeshko          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:39:31 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ static int	cmd_to_start(char *name_file)
 	}
 }
 
-// Function to create and initialize a "child_return" structure.
-// Returns the pointer to the newly created structure.
+/**
+ * Function to create and initialize a "child_return" structure.
+ * Returns the pointer to the newly created structure.
+ */
 child_return	*create_child_return(int read_from)
 {
 	child_return	*ch;
